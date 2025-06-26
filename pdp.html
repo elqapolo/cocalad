@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Photos de Profil (PDPs) - Catégories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --header-pdp: #3498db;
+            --header-pdp-dark: #2980b9;
+            --bg-pdp: #e0eafc;
+            --card-bg: #ffffff;
+            --text-dark: #333;
+            --text-light: #f4f4f4;
+            --download-btn: #2ecc71;
+            --download-btn-hover: #27ae60;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --category-title-color: #6a11cb;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--bg-pdp) 0%, #cfdef3 100%);
+            color: var(--text-dark);
+        }
+
+        .header {
+            background: linear-gradient(90deg, var(--header-pdp), var(--header-pdp-dark));
+            color: var(--text-light);
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px var(--shadow-medium);
+            position: relative;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        .nav-buttons {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 15px;
+        }
+        .nav-buttons.right {
+            left: auto;
+            right: 20px;
+        }
+        .nav-buttons a {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            text-decoration: none;
+            color: var(--text-light);
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px var(--shadow-light);
+        }
+        .nav-buttons a i {
+            margin-right: 8px;
+        }
+        .nav-buttons a:hover {
+            background-color: rgba(255,255,255,0.4);
+            transform: translateY(-3px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0px auto 40px auto;
+            padding: 30px;
+            background-color: var(--card-bg);
+            box-shadow: 0 0 20px var(--shadow-medium);
+            border-radius: 15px;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-description {
+            text-align: center;
+            font-size: 1.15em;
+            margin-bottom: 50px;
+            color: #555;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Styles pour les catégories */
+        .category-section {
+            margin-bottom: 60px;
+            padding-top: 20px; /* Pour l'ancre de navigation */
+        }
+        .category-section:last-child {
+            margin-bottom: 0;
+        }
+        .category-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: var(--category-title-color);
+            margin-bottom: 40px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--header-pdp), var(--category-title-color));
+            border-radius: 2px;
+        }
+
+        .pdp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+        .pdp-item {
+            background-color: #fefefe;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            padding: 25px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: itemFadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        .pdp-item:nth-child(1) { animation-delay: 0.1s; }
+        .pdp-item:nth-child(2) { animation-delay: 0.2s; }
+        .pdp-item:nth-child(3) { animation-delay: 0.3s; }
+        .pdp-item:nth-child(4) { animation-delay: 0.4s; }
+        .pdp-item:nth-child(5) { animation-delay: 0.5s; }
+        .pdp-item:nth-child(6) { animation-delay: 0.6s; }
+        /* Ajoutez plus de délais si vous avez plus d'éléments */
+
+        @keyframes itemFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pdp-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px var(--shadow-medium);
+        }
+        .pdp-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            max-height: 220px;
+            object-fit: cover;
+            border: 2px solid var(--header-pdp);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .pdp-item h3 {
+            margin-top: 0;
+            color: var(--header-pdp);
+            font-size: 1.6em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .pdp-item p {
+            font-size: 0.98em;
+            color: #666;
+            flex-grow: 1;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(45deg, var(--download-btn), var(--download-btn-hover));
+            color: white;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .download-btn i {
+            margin-right: 10px;
+        }
+        .download-btn:hover {
+            background: linear-gradient(45deg, var(--download-btn-hover), var(--download-btn));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 25px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 0.9em;
+            background-color: #f0f0f0;
+            border-radius: 0 0 15px 15px;
+        }
+
+        /* Navigation rapide par catégorie */
+        .category-nav {
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .category-nav a {
+            background-color: var(--header-pdp);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px var(--shadow-light);
+        }
+        .category-nav a:hover {
+            background-color: var(--header-pdp-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 0;
+            }
+            .nav-buttons {
+                position: static;
+                transform: none;
+                margin-top: 15px;
+                justify-content: center;
+            }
+            .nav-buttons.right {
+                position: static;
+                transform: none;
+                margin-top: 15px;
+                justify-content: center;
+            }
+            .header h1 {
+                font-size: 2.2em;
+            }
+            .container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+            .pdp-grid {
+                grid-template-columns: 1fr;
+            }
+            .pdp-item {
+                padding: 20px;
+            }
+            .page-description {
+                font-size: 1em;
+                margin-bottom: 30px;
+            }
+            .category-title {
+                font-size: 2em;
+            }
+            .category-nav {
+                gap: 10px;
+            }
+            .category-nav a {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .nav-buttons a {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            .pdp-item h3 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Mes Photos de Profil (PDPs)</h1>
+        <div class="nav-buttons">
+            <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
+        </div>
+        <div class="nav-buttons right">
+            <a href="bannieres.html"><i class="fas fa-image"></i> Voir les Bannières</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <p class="page-description">
+            Plongez dans ma collection unique de photos de profil, classées par thèmes pour une exploration facilitée. Que vous cherchiez un style urbain, une touche naturelle ou une inspiration tirée de vos univers préférés, vous trouverez la PDP parfaite pour vous exprimer !
+        </p>
+
+        <div class="category-nav">
+            <a href="#gta5-pdp"><i class="fas fa-car"></i> GTA 5</a>
+            <a href="#anime-pdp"><i class="fas fa-hat-wizard"></i> Anime</a>
+            <a href="#nature-pdp"><i class="fas fa-tree"></i> Nature</a>
+            <a href="#gaming-pdp"><i class="fas fa-gamepad"></i> Gaming</a>
+            <a href="#abstrait-pdp"><i class="fas fa-paint-brush"></i> Abstrait</a>
+        </div>
+
+        <div id="gta5-pdp" class="category-section">
+            <h2 class="category-title">PDPs GTA 5</h2>
+            <div class="pdp-grid">
+                <div class="pdp-item">
+                    <img src="https://media.discordapp.net/attachments/1329859060887060541/1387711688014561321/image.png?ex=685e56b8&is=685d0538&hm=d5c066868b3dd8f2d6af3707c787397cd1df79538193f099890c0ce869464cf5&=&format=webp&quality=lossless" alt="PDP GTA 5 Personnage Urbain">
+                    <h3>Personnage Urbain</h3>
+                    <p>Un personnage stylisé dans l'ambiance urbaine de Los Santos, avec des couleurs vives.</p>
+                    <a href="https://media.discordapp.net/attachments/1329859060887060541/1387711688014561321/image.png?ex=685e56b8&is=685d0538&hm=d5c066868b3dd8f2d6af3707c787397cd1df79538193f099890c0ce869464cf5&=&format=webp&quality=lossless" download="https://media.discordapp.net/attachments/1329859060887060541/1387711688014561321/image.png?ex=685e56b8&is=685d0538&hm=d5c066868b3dd8f2d6af3707c787397cd1df79538193f099890c0ce869464cf5&=&format=webp&quality=lossless" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+
+                <div class="pdp-item">
+                    <img src="https://media.discordapp.net/attachments/1329859060887060541/1387713064111177839/image.png?ex=685e5800&is=685d0680&hm=8da387a2cd0993b8d317b9ca866a90ccd0bb660bed3fc5ab11d0116cf5e97c5a&=&format=webp&quality=lossless" alt="PDP GTA 5 Gangster">
+                    <h3>Gangster de Los Santos</h3>
+                    <p>Portrait d'un personnage au look de gangster classique de GTA V, avec une attitude rebelle.</p>
+                    <a href="https://media.discordapp.net/attachments/1329859060887060541/1387713064111177839/image.png?ex=685e5800&is=685d0680&hm=8da387a2cd0993b8d317b9ca866a90ccd0bb660bed3fc5ab11d0116cf5e97c5a&=&format=webp&quality=lossless" download="pdp_gta5_gangster.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+
+                <div class="pdp-item">
+                    <img src="https://media.discordapp.net/attachments/1329859060887060541/1387714118500483114/image.png?ex=685e58fc&is=685d077c&hm=d34622c2b4270ba0c28a39a0b721241d22591b3d74559d20427fbe2bc193c5fb&=&format=webp&quality=lossless" alt="PDP GTA 5 Femme Fatale">
+                    <h3>Femme Fatale</h3>
+                    <p>Une PDP élégante et dangereuse, inspirée des personnages féminins emblématiques de GTA V.</p>
+                    <a href="https://media.discordapp.net/attachments/1329859060887060541/1387714118500483114/image.png?ex=685e58fc&is=685d077c&hm=d34622c2b4270ba0c28a39a0b721241d22591b3d74559d20427fbe2bc193c5fb&=&format=webp&quality=lossless" download="pdp_gta5_femme_fatale.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+
+                <div class="pdp-item">
+                    <img src="https://media.discordapp.net/attachments/1329859060887060541/1387714996787744839/image.png?ex=685e59cd&is=685d084d&hm=f5a1a2c42ffd72faf9ed30ffc14fcb143fa03236f01ce02883d6ece69667be81&=&format=webp&quality=lossless" alt="PDP GTA 5 Voiture Sport">
+                    <h3>Voiture Sportive</h3>
+                    <p>Une PDP centrée sur une voiture de sport emblématique de GTA V, avec des reflets néon.</p>
+                    <a href="https://media.discordapp.net/attachments/1329859060887060541/1387714996787744839/image.png?ex=685e59cd&is=685d084d&hm=f5a1a2c42ffd72faf9ed30ffc14fcb143fa03236f01ce02883d6ece69667be81&=&format=webp&quality=lossless" download="pdp_gta5_voiture_sport.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="anime-pdp" class="category-section">
+            <h2 class="category-title">PDPs Anime</h2>
+            <div class="pdp-grid">
+                <div class="pdp-item">
+                    <img src="images/pdp_anime_heroine_fantasy.png" alt="PDP Héroïne Fantasy Anime">
+                    <h3>Héroïne Fantasy</h3>
+                    <p>Un portrait vibrant d'une héroïne de fantasy style anime, avec des détails magiques.</p>
+                    <a href="images/pdp_anime_heroine_fantasy_4k.png" download="pdp_anime_heroine_fantasy.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+
+                <div class="pdp-item">
+                    <img src="images/pdp_anime_samourai.png" alt="PDP Samouraï Anime">
+                    <h3>Samouraï Mystérieux</h3>
+                    <p>Un guerrier samouraï dans un style anime classique, avec une aura de puissance.</p>
+                    <a href="images/pdp_anime_samourai_4k.png" download="pdp_anime_samourai.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+
+                <div class="pdp-item">
+                    <img src="images/pdp_anime_chibi.png" alt="PDP Chibi Mignon">
+                    <h3>Chibi Mignon</h3>
+                    <p>Un personnage chibi adorable et coloré, parfait pour une touche de douceur.</p>
+                    <a href="images/pdp_anime_chibi_4k.png" download="pdp_anime_chibi.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="nature-pdp" class="category-section">
+            <h2 class="category-title">PDPs Nature</h2>
+            <div class="pdp-grid">
+                <div class="pdp-item">
+                    <img src="images/pdp_nature_foret_mystique.png" alt="PDP Forêt Mystique">
+                    <h3>Forêt Mystique</h3>
+                    <p>Une image de profil inspirée par la beauté envoûtante d'une forêt brumeuse.</p>
+                    <a href="images/pdp_nature_foret_mystique_4k.png" download="pdp_nature_foret_mystique.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+
+                <div class="pdp-item">
+                    <img src="images/pdp_nature_montagne_soleil.png" alt="PDP Montagne au Lever du Soleil">
+                    <h3>Montagne Sereine</h3>
+                    <p>Un paysage de montagne paisible au lever du soleil, pour une ambiance calme.</p>
+                    <a href="images/pdp_nature_montagne_soleil_4k.png" download="pdp_nature_montagne_soleil.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="gaming-pdp" class="category-section">
+            <h2 class="category-title">PDPs Gaming</h2>
+            <div class="pdp-grid">
+                <div class="pdp-item">
+                    <img src="images/pdp_gaming_controleur_futuriste.png" alt="PDP Contrôleur Futuriste">
+                    <h3>Contrôleur Futuriste</h3>
+                    <p>Une PDP pour les gamers, avec un design de contrôleur moderne et lumineux.</p>
+                    <a href="images/pdp_gaming_controleur_futuriste_4k.png" download="pdp_gaming_controleur_futuriste.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="abstrait-pdp" class="category-section">
+            <h2 class="category-title">PDPs Abstraites</h2>
+            <div class="pdp-grid">
+                <div class="pdp-item">
+                    <img src="images/pdp_abstrait_formes_geometriques.png" alt="PDP Formes Géométriques">
+                    <h3>Formes Géométriques</h3>
+                    <p>Un design abstrait avec des formes géométriques colorées et dynamiques.</p>
+                    <a href="images/pdp_abstrait_formes_geometriques_4k.png" download="pdp_abstrait_formes_geometriques.png" class="download-btn"><i class="fas fa-download"></i> Télécharger</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Ma Galerie Créative. Tous droits réservés.</p>
+    </div>
+
+</body>
+</html>

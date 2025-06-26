@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Ma Galerie Créative</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-blue: #6a11cb;
+            --secondary-purple: #2575fc;
+            --accent-green: #00f260;
+            --text-dark: #333;
+            --text-light: #f4f4f4;
+            --bg-light: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-purple) 100%);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden; /* Pour gérer les étoiles en fond */
+        }
+
+        /* Effet d'étoiles en fond */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 10s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .container {
+            background-color: var(--bg-light);
+            padding: 50px 70px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px var(--shadow);
+            max-width: 900px;
+            width: 90%;
+            animation: fadeInScale 1s ease-out forwards;
+            position: relative;
+            z-index: 1;
+            color: var(--text-dark); /* Texte sombre pour le conteneur clair */
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        h1 {
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            font-size: 3.2em;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.25em;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            color: #555;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .button-grid a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            min-width: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button-grid a i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .btn-pdp {
+            background: linear-gradient(45deg, #3498db, #5d9cec);
+            color: white;
+            border: none;
+        }
+        .btn-pdp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+            transform: skewX(-20deg);
+        }
+        .btn-pdp:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(45deg, #2980b9, #4a87d4);
+        }
+        .btn-pdp:hover::before {
+            left: 100%;
+        }
+
+        .btn-bannieres {
+            background: linear-gradient(45deg, #2ecc71, #34e082);
+            color: white;
+            border: none;
+        }
+        .btn-bannieres::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+            transform: skewX(-20deg);
+        }
+        .btn-bannieres:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(45deg, #27ae60, #2cbb70);
+        }
+        .btn-bannieres:hover::before {
+            left: 100%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            p {
+                font-size: 1.1em;
+            }
+            .button-grid a {
+                padding: 15px 30px;
+                font-size: 1.2em;
+                min-width: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            p {
+                font-size: 1em;
+                margin-bottom: 30px;
+            }
+            .button-grid {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .button-grid a {
+                width: 80%;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+
+    <div class="container">
+        <h1>Bienvenue dans ma Galerie Créative !</h1>
+        <p>
+            Explorez mon univers visuel où chaque création est pensée pour inspirer.
+            Découvrez ma collection exclusive de **Photos de Profil (PDPs)** et de **Bannières**,
+            toutes conçues avec passion et disponibles en téléchargement gratuit pour vos projets personnels ou professionnels.
+            Laissez-vous guider et trouvez l'élément parfait pour exprimer votre style !
+        </p>
+
+        <div class="button-grid">
+            <a href="pdp.html" class="btn-pdp"><i class="fas fa-user-circle"></i> Voir mes PDPs</a>
+            <a href="bannieres.html" class="btn-bannieres"><i class="fas fa-image"></i> Voir mes Bannières</a>
+        </div>
+    </div>
+
+    <script>
+        // Script pour générer les étoiles en fond
+        const starsContainer = document.querySelector('.stars');
+        const numStars = 100; // Nombre d'étoiles
+
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = `${Math.random() * 3 + 1}px`; // Taille entre 1px et 4px
+            star.style.height = star.style.width;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 10}s`; // Délai pour l'animation
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
